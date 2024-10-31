@@ -390,13 +390,17 @@ export class SideMenuProsemirrorPlugin<
     dataTransfer: DataTransfer | null;
     clientY: number;
   }) => {
+    this.editor.prosemirrorView.dom.classList.add('bn-dragging'); // feature: 拖拽时添加 bn-dragging 类
     dragStart(event, this.editor);
   };
 
   /**
    * Handles drag & drop events for blocks.
    */
-  blockDragEnd = () => unsetDragImage(this.editor.prosemirrorView.root);
+  blockDragEnd = () =>{
+    unsetDragImage(this.editor.prosemirrorView.root);
+    this.editor.prosemirrorView.dom.classList.remove('bn-dragging'); // feature: 拖拽结束时移除 bn-dragging 类
+  } 
   /**
    * Freezes the side menu. When frozen, the side menu will stay
    * attached to the same block regardless of which block is hovered by the
