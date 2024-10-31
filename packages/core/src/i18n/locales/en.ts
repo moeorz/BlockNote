@@ -119,7 +119,7 @@ export const en = {
   },
   placeholders: {
     default: "Enter text or type '/' for commands",
-    heading: "Heading",
+    heading: "Heading {level}",
     bulletListItem: "List",
     numberedListItem: "List",
     checkListItem: "List",

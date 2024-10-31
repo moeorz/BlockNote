@@ -39,6 +39,11 @@ export const PlaceholderPlugin = (
           return getBaseSelector(mustBeFocusedSelector);
         }
 
+        if (blockType.startsWith("heading-")) { //heading css selector
+          const level = blockType.split("-")[1];
+          return getBaseSelector(mustBeFocusedSelector + `[data-content-type="heading"][data-level="${level}"]`);
+        }
+
         const blockTypeSelector = `[data-content-type="${blockType}"]`;
         return getBaseSelector(mustBeFocusedSelector + blockTypeSelector);
       };
@@ -46,22 +51,33 @@ export const PlaceholderPlugin = (
       for (const [blockType, placeholder] of Object.entries(placeholders)) {
         const mustBeFocused = blockType === "default";
 
-        styleSheet.insertRule(
-          `${getSelector(blockType, mustBeFocused)}{ content: ${JSON.stringify(
-            placeholder
-          )}; }`
-        );
+        if (blockType === "heading") {
+          // 为 heading 添加特殊处理
+          for (let level = 1; level <= 6; level++) {
+            const headingPlaceholder = placeholder.replace("{level}", level.toString());
+            const headingSelector = getSelector(`heading-${level}`, mustBeFocused);
+            
+            styleSheet.insertRule(
+              `${headingSelector}{ content: ${JSON.stringify(headingPlaceholder)}; }`
+            );
 
-        // For some reason, the placeholders which show when the block is focused
-        // take priority over ones which show depending on block type, so we need
-        // to make sure the block specific ones are also used when the block is
-        // focused.
-        if (!mustBeFocused) {
+            if (!mustBeFocused) {
+              styleSheet.insertRule(
+                `${getSelector(`heading-${level}`, true)}{ content: ${JSON.stringify(headingPlaceholder)}; }`
+              );
+            }
+          }
+        } else {
+          // 原有的处理逻辑
           styleSheet.insertRule(
-            `${getSelector(blockType, true)}{ content: ${JSON.stringify(
-              placeholder
-            )}; }`
+            `${getSelector(blockType, mustBeFocused)}{ content: ${JSON.stringify(placeholder)}; }`
           );
+
+          if (!mustBeFocused) {
+            styleSheet.insertRule(
+              `${getSelector(blockType, true)}{ content: ${JSON.stringify(placeholder)}; }`
+            );
+          }
         }
       }
 
