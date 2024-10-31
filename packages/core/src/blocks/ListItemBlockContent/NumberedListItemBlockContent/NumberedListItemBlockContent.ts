@@ -151,13 +151,13 @@ const NumberedListItemBlockContent = createStronglyTypedTiptapNode({
   renderHTML({ HTMLAttributes }) {
     return createDefaultBlockDOMOutputSpec(
       this.name,
-      // We use a <p> tag, because for <li> tags we'd need an <ol> element to
-      // put them in to be semantically correct, which we can't have due to the
-      // schema.
       "p",
       {
         ...(this.options.domAttributes?.blockContent || {}),
         ...HTMLAttributes,
+        style: `list-style-type: ${HTMLAttributes.index?.match(/^[0-9]+$/) ? 'decimal' : 
+               HTMLAttributes.index?.match(/^[a-z]$/) ? 'lower-alpha' :
+               'lower-roman'};`,
       },
       this.options.domAttributes?.inlineContent || {}
     );
