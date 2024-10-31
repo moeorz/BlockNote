@@ -114,7 +114,13 @@
 .bn-block-group
   .bn-block-group
   .bn-block-outer:not([data-prev-depth-changed])::before {
-  border-left: 1px solid var(--bn-colors-side-menu);
+  border-left: 0px solid var(--bn-colors-side-menu);
+}
+
+.bn-editor.bn-dragging .bn-block-group
+  .bn-block-group
+  .bn-block-outer:not([data-prev-depth-changed])::before {
+ border-left-width: 1px;
 }
 
 /* Placeholder styling */
