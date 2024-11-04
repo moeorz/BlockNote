@@ -31,6 +31,7 @@ import { NumberedListItem } from "./ListItemBlockContent/NumberedListItemBlockCo
 import { Paragraph } from "./ParagraphBlockContent/ParagraphBlockContent.js";
 import { Table } from "./TableBlockContent/TableBlockContent.js";
 import { VideoBlock } from "./VideoBlockContent/VideoBlockContent.js";
+import { HorizontalLine } from "./HorizontalLineBlockContent/HorizontalLineBlockContent.js";
 
 export { customizeCodeBlock } from "./CodeBlockContent/CodeBlockContent.js";
 
@@ -46,6 +47,7 @@ export const defaultBlockSpecs = {
   image: ImageBlock,
   video: VideoBlock,
   audio: AudioBlock,
+  horizontalLine: HorizontalLine,
 } satisfies BlockSpecs;
 
 export const defaultBlockSchema = getBlockSchemaFromSpecs(defaultBlockSpecs);

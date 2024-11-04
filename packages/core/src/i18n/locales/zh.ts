@@ -36,7 +36,7 @@ export const zh: Dictionary = {
     },
     bullet_list: {
       title: "无序列表",
-      subtext: "用于显示无序列表",
+      subtext: "用于���示无序列表",
       aliases: [
         "ul",
         "li",
@@ -149,6 +149,12 @@ export const zh: Dictionary = {
         "表情",
       ],
       group: "其他",
+    },
+    horizontal_line: {
+      title: "分隔线",
+      subtext: "添加一条水平分隔线",
+      aliases: ["hr", "line", "分隔线", "分割线", "水平线", "---"],
+      group: "基本块",
     },
   },
   placeholders: {

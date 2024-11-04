@@ -116,6 +116,12 @@ export const en = {
       aliases: ["emoji", "emote", "emotion", "face"],
       group: "Others",
     },
+    horizontal_line: {
+      title: "Horizontal Line",
+      subtext: "Add a horizontal divider line",
+      aliases: ["hr", "line", "divider", "separator", "---"],
+      group: "Basic Blocks",
+    },
   },
   placeholders: {
     default: "Enter text or type '/' for commands",

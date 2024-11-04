@@ -523,3 +523,17 @@ NESTED BLOCKS
   justify-content: flex-start;
   text-align: justify;
 }
+
+/* HORIZONTAL LINE */
+.bn-block-content[data-content-type="horizontalLine"] {
+  padding: 24px 0;
+  width: 100%;
+}
+
+.bn-block-content[data-content-type="horizontalLine"] hr {
+  border: none;
+  border-top: 2px solid #e0e0e0;
+  margin: 0;
+  width: 100%;
+  display: block;
+}

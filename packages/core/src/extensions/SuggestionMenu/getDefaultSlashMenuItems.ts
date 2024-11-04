@@ -193,6 +193,19 @@ export function getDefaultSlashMenuItems<
     });
   }
 
+  if (checkDefaultBlockTypeInSchema("horizontalLine", editor)) {
+    items.push({
+      onItemClick: () => {
+        insertOrUpdateBlock(editor, {
+          type: "horizontalLine",
+        });
+      },
+      badge: formatKeyboardShortcut("Mod-Alt-h"),
+      key: "horizontal_line",
+      ...editor.dictionary.slash_menu.horizontal_line,
+    });
+  }
+
   if (checkDefaultBlockTypeInSchema("table", editor)) {
     items.push({
       onItemClick: () => {
