@@ -108,7 +108,21 @@ const CodeBlockContent = createStronglyTypedTiptapNode({
     const { dom, contentDOM } = createDefaultBlockDOMOutputSpec(
       this.name,
       "code",
-      this.options.domAttributes?.blockContent || {},
+      {
+        ...this.options.domAttributes?.blockContent,
+        class: "notion-code-block",
+        style: `
+          background: rgb(247, 246, 243);
+          font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+          font-size: 14px;
+          line-height: 1.4;
+          padding: 16px;
+          border-radius: 3px;
+          margin: 4px 0;
+          tab-size: 2;
+          overflow-x: auto;
+        `
+      },
       {
         ...(this.options.domAttributes?.inlineContent || {}),
         ...HTMLAttributes,
@@ -125,22 +139,28 @@ const CodeBlockContent = createStronglyTypedTiptapNode({
     };
   },
   addNodeView() {
-    const supportedLanguages = this.options
-      .supportedLanguages as SupportedLanguageConfig[];
+    const supportedLanguages = this.options.supportedLanguages as SupportedLanguageConfig[];
 
     return ({ editor, node, getPos, HTMLAttributes }) => {
       const pre = document.createElement("pre");
       const select = document.createElement("select");
       const selectWrapper = document.createElement("div");
+      const codeWrapper = document.createElement("div");
+      
       const { dom, contentDOM } = createDefaultBlockDOMOutputSpec(
         this.name,
         "code",
         {
           ...(this.options.domAttributes?.blockContent || {}),
           ...HTMLAttributes,
+          class: "notion-code-block",
         },
         this.options.domAttributes?.inlineContent || {}
       );
+
+      codeWrapper.className = "code-wrapper";
+      selectWrapper.className = "select-wrapper";
+
       const handleLanguageChange = (event: Event) => {
         const language = (event.target as HTMLSelectElement).value;
 
@@ -163,7 +183,8 @@ const CodeBlockContent = createStronglyTypedTiptapNode({
       select.value = node.attrs.language || this.options.defaultLanguage;
       dom.removeChild(contentDOM);
       dom.appendChild(selectWrapper);
-      dom.appendChild(pre);
+      dom.appendChild(codeWrapper);
+      codeWrapper.appendChild(pre);
       pre.appendChild(contentDOM);
       selectWrapper.appendChild(select);
       select.addEventListener("change", handleLanguageChange);
@@ -188,12 +209,11 @@ const CodeBlockContent = createStronglyTypedTiptapNode({
     let highlighter: Highlighter | undefined;
     let parser: Parser | undefined;
 
-    const supportedLanguages = this.options
-      .supportedLanguages as SupportedLanguageConfig[];
+    const supportedLanguages = this.options.supportedLanguages as SupportedLanguageConfig[];
     const lazyParser: Parser = (options) => {
       if (!highlighter) {
         return createHighlighter({
-          themes: ["github-dark"],
+          themes: ["github-light"],
           langs: [],
         }).then((createdHighlighter) => {
           highlighter = createdHighlighter;
@@ -228,8 +248,7 @@ const CodeBlockContent = createStronglyTypedTiptapNode({
     return [shikiLazyPlugin];
   },
   addInputRules() {
-    const supportedLanguages = this.options
-      .supportedLanguages as SupportedLanguageConfig[];
+    const supportedLanguages = this.options.supportedLanguages as SupportedLanguageConfig[];
 
     return [
       new InputRule({

@@ -271,46 +271,47 @@ NESTED BLOCKS
 /* CODE BLOCKS */
 .bn-block-content[data-content-type="codeBlock"] {
   position: relative;
-
-  background-color: rgb(22 22 22);
-  color: white;
-  border-radius: 8px;
+  background: rgb(247, 246, 243);
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 8px 16px 16px;
+  border-radius: 3px;
+  margin: 4px 0;
 }
-.bn-block-content[data-content-type="codeBlock"] > pre {
-  white-space: pre;
+
+.bn-block-content[data-content-type="codeBlock"] .code-wrapper {
   overflow-x: auto;
-  margin: 0;
-  width: 100%;
   tab-size: 2;
-
-  padding: 24px;
+  padding-top: 24px;
 }
-.bn-block-content[data-content-type="codeBlock"] > div {
-  outline: none !important;
-}
-.bn-block-content[data-content-type="codeBlock"] > div > select {
-  outline: none !important;
-  appearance: none;
-  user-select: none;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
 
+.bn-block-content[data-content-type="codeBlock"] .select-wrapper {
   position: absolute;
   top: 8px;
-  left: 18px;
-
-  font-size: 0.8em;
-  color: white;
-
-  opacity: 0;
-  transition: opacity 0.3s;
-  transition-delay: 1s;
+  left: 16px;
+  z-index: 1;
+  background: rgb(247, 246, 243);
+  padding: 1px;
+  border-radius: 3px;
+  opacity: 1;
+  pointer-events: auto;
 }
-.bn-block-content[data-content-type="codeBlock"]:hover > div > select,
-.bn-block-content[data-content-type="codeBlock"] > div > select:focus {
-  opacity: 0.5;
-  transition-delay: 0.1s;
+
+.bn-block-content[data-content-type="codeBlock"] select {
+  background: transparent;
+  border: 0px solid rgba(55, 53, 47, 0.16);
+  border-radius: 3px;
+  color: rgb(55, 53, 47);
+  font-size: 12px;
+  height: 20px;
+  padding: 0 4px;
+  outline: none;
+  cursor: pointer;
+  min-width: 120px;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  display: block;
 }
 
 /* FILES */
