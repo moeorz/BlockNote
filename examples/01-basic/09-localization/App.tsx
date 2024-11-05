@@ -12,7 +12,7 @@ export default function App() {
     // Passes the Dutch (NL) dictionary to the editor instance.
     // You can also provide your own dictionary here to customize the strings used in the editor,
     // or submit a Pull Request to add support for your language of your choice
-    dictionary: locales.nl,
+    dictionary: locales.zh,
     // dictionary: locales[lang as keyof typeof locales], // Use the language from the i18n library dynamically
   });
 
