@@ -16,18 +16,22 @@ export default function App() {
     initialContent: [
       {
         type: "paragraph",
+        alias: "test1",
         content: "Welcome to this demo!",
       },
       {
         type: "heading",
+        alias: "test2",
         content: "This is a heading block",
       },
       {
         type: "paragraph",
+        alias: "test3",
         content: "This is a paragraph block",
       },
       {
         type: "paragraph",
+        alias: "test4"
       },
     ],
   });
