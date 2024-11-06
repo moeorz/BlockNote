@@ -258,10 +258,13 @@ export function blockToNode(
 
   const groupNode = schema.nodes["blockGroup"].create({}, children);
 
+  const { alias, ...otherProps } = block.props || {};
+
   return schema.nodes["blockContainer"].create(
     {
       id: id,
-      ...block.props,
+      alias: block.alias,
+      ...otherProps,
     },
     children.length > 0 ? [contentNode, groupNode] : contentNode
   );

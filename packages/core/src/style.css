@@ -1,2 +1,155 @@
 @import url("./editor/Block.css");
 @import url("./editor/editor.css");
+
+.bn-drag-handle-menu-item-input {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+}
+
+.bn-drag-handle-menu-item-input-field {
+  flex: 1;
+  min-width: 120px;
+  padding: 4px 8px;
+  border: 1px solid var(--bn-colors-border);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.bn-drag-handle-menu-item-input-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.bn-drag-handle-menu-item-input-button {
+  padding: 4px 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.bn-drag-handle-menu-item-input-button:hover {
+  background-color: var(--bn-colors-hover);
+}
+
+.bn-menu-item-input {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+}
+
+.bn-menu-item-input-field {
+  flex: 1;
+  min-width: 120px;
+  padding: 4px 8px;
+  border: 1px solid var(--bn-colors-border);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.bn-menu-item-input-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.bn-menu-item-input-button {
+  padding: 4px 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.bn-menu-item-input-button:hover {
+  background-color: var(--bn-colors-hover);
+}
+
+.bn-menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.bn-menu-item-text {
+  flex: 1;
+}
+
+.bn-block-outer[title],
+.bn-block[title] {
+  position: relative;
+  cursor: help;
+}
+
+.bn-block-outer[title]:hover::after,
+.bn-block[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  top: -24px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Tooltip styles */
+.bn-tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.bn-tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  animation: bn-tooltip-fade 0.2s ease-in-out;
+  transform-origin: left center;
+}
+
+.bn-tooltip-top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.bn-tooltip-bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+}
+
+.bn-tooltip-left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+}
+
+.bn-tooltip-right {
+  left: 100%;
+  top: 50%;
+  transform: none;
+}
+
+@keyframes bn-tooltip-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

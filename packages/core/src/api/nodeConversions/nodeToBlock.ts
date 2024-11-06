@@ -336,7 +336,9 @@ export function nodeToBlock<
   const { blockContainer, blockContent, blockGroup } =
     getBlockInfoWithManualOffset(node, 0);
 
+
   let id = blockContainer.node.attrs.id;
+  let alias = blockContainer.node.attrs.alias;
 
   // Only used for blocks converted from other formats.
   if (id === null) {
@@ -400,6 +402,7 @@ export function nodeToBlock<
 
   const block = {
     id,
+    alias,
     type: blockConfig.type,
     props,
     content,

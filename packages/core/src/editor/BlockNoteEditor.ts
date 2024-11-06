@@ -1179,4 +1179,62 @@ export class BlockNoteEditor<
       })
     );
   }
+
+  /**
+   * Sets the alias of a block with the specified ID
+   * @param blockId The ID of the block to update
+   * @param alias The new alias value, or null to remove the alias
+   */
+  public setBlockAlias(blockId: string, alias: string | null) {
+    let foundBlock: { node: Node, pos: number } | undefined;
+    
+    this._tiptapEditor.state.doc.descendants((node, pos) => {
+      if (node.type.name === "blockContainer" && node.attrs.id === blockId) {
+        foundBlock = { node, pos };
+        return false;
+      }
+      return true;
+    });
+
+    if (!foundBlock) {
+      console.warn(`Block with ID ${blockId} not found`);
+      return;
+    }
+
+    this._tiptapEditor
+      .chain()
+      .command(({ tr }) => {
+        tr.setNodeMarkup(tr.mapping.map(foundBlock!.pos), undefined, {
+          ...foundBlock!.node.attrs,
+          alias,
+        });
+        return true;
+      })
+      .run();
+  }
+
+  /**
+   * Gets a block by its alias
+   * @param alias The alias to search for
+   * @returns The block with the specified alias, or undefined if not found
+   */
+  public getBlockByAlias(alias: string): Block<BSchema, ISchema, SSchema> | undefined {
+    let foundBlock: Block<BSchema, ISchema, SSchema> | undefined = undefined;
+
+    this._tiptapEditor.state.doc.firstChild!.descendants((node) => {
+      if (node.type.name === "blockContainer" && node.attrs.alias === alias) {
+        foundBlock = nodeToBlock(
+          node,
+          this.schema.blockSchema,
+          this.schema.inlineContentSchema,
+          this.schema.styleSchema,
+          this.blockCache
+        );
+        return false;
+      }
+      return true;
+    });
+
+    return foundBlock;
+  }
 }

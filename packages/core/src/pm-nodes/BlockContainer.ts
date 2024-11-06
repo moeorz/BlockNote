@@ -8,6 +8,7 @@ import { mergeCSSClasses } from "../util/browser.js";
 const BlockAttributes: Record<string, string> = {
   blockColor: "data-block-color",
   blockStyle: "data-block-style",
+  alias: "data-alias",
   id: "data-id",
   depth: "data-depth",
   depthChange: "data-depth-change",
@@ -22,11 +23,21 @@ export const BlockContainer = Node.create<{
 }>({
   name: "blockContainer",
   group: "blockContainer",
-  // A block always contains content, and optionally a blockGroup which contains nested blocks
   content: "blockContent blockGroup?",
-  // Ensures content-specific keyboard handlers trigger first.
   priority: 50,
   defining: true,
+
+  addAttributes() {
+    return {
+      alias: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-alias"),
+        renderHTML: (attributes) => ({
+          "data-alias": attributes.alias,
+        }),
+      }
+    };
+  },
 
   parseHTML() {
     return [
@@ -58,6 +69,11 @@ export const BlockContainer = Node.create<{
     const blockOuter = document.createElement("div");
     blockOuter.className = "bn-block-outer";
     blockOuter.setAttribute("data-node-type", "blockOuter");
+    
+    if (HTMLAttributes.alias) {
+      blockOuter.setAttribute("data-alias", HTMLAttributes.alias);
+    }
+    
     for (const [attribute, value] of Object.entries(HTMLAttributes)) {
       if (attribute !== "class") {
         blockOuter.setAttribute(attribute, value);
@@ -68,9 +84,15 @@ export const BlockContainer = Node.create<{
       ...(this.options.domAttributes?.block || {}),
       ...HTMLAttributes,
     };
+    
     const block = document.createElement("div");
     block.className = mergeCSSClasses("bn-block", blockHTMLAttributes.class);
     block.setAttribute("data-node-type", this.name);
+    
+    if (blockHTMLAttributes.alias) {
+      block.setAttribute("data-alias", blockHTMLAttributes.alias);
+    }
+    
     for (const [attribute, value] of Object.entries(blockHTMLAttributes)) {
       if (attribute !== "class") {
         block.setAttribute(attribute, value);

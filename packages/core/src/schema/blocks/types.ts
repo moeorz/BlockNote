@@ -23,6 +23,7 @@ export type BlockNoteDOMAttributes = Partial<{
 
 export type FileBlockConfig = {
   type: string;
+  alias?: string;
   readonly propSchema: PropSchema & {
     caption: {
       default: "";
@@ -59,6 +60,7 @@ export type FileBlockConfig = {
 export type BlockConfig =
   | {
       type: string;
+      alias?: string;
       readonly propSchema: PropSchema;
       content: "inline" | "none" | "table";
       isSelectable?: boolean;
@@ -164,6 +166,7 @@ export type BlockFromConfigNoChildren<
   S extends StyleSchema
 > = {
   id: string;
+  alias: string;
   type: B["type"];
   props: Props<B["propSchema"]>;
   content: B["content"] extends "inline"
@@ -237,6 +240,7 @@ type PartialBlockFromConfigNoChildren<
   S extends StyleSchema
 > = {
   id?: string;
+  alias?: string;
   type?: B["type"];
   props?: Partial<Props<B["propSchema"]>>;
   content?: B["content"] extends "inline"

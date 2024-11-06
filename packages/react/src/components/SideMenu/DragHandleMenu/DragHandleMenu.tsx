@@ -13,6 +13,7 @@ import { useDictionary } from "../../../i18n/dictionary.js";
 import { BlockColorsItem } from "./DefaultItems/BlockColorsItem.js";
 import { RemoveBlockItem } from "./DefaultItems/RemoveBlockItem.js";
 import { DragHandleMenuProps } from "./DragHandleMenuProps.js";
+import { BlockAliasItem } from "./DefaultItems/BlockAliasItem.js";
 
 /**
  * By default, the DragHandleMenu component will render with default items.
@@ -43,6 +44,9 @@ export const DragHandleMenu = <
           <BlockColorsItem {...props}>
             {dict.drag_handle.colors_menuitem}
           </BlockColorsItem>
+          <BlockAliasItem {...props}>
+            {dict.drag_handle.alias_menuitem}
+          </BlockAliasItem>
         </>
       )}
     </Components.Generic.Menu.Dropdown>

@@ -27,6 +27,7 @@ import {
 import { EditorContent } from "./EditorContent.js";
 import { ElementRenderer } from "./ElementRenderer.js";
 import "./styles.css";
+import { TooltipPortal } from "../components/Tooltip/TooltipPortal.js";
 
 const emptyFn = () => {
   // noop
@@ -155,25 +156,28 @@ function BlockNoteViewComponent<
     <BlockNoteContext.Provider value={context as any}>
       <ElementRenderer ref={setElementRenderer} />
       {!editor.headless && (
-        <EditorContent editor={editor}>
-          <div
-            className={mergeCSSClasses(
-              "bn-container",
-              editorColorScheme || "",
-              className || ""
-            )}
-            data-color-scheme={editorColorScheme}
-            {...rest}
-            ref={ref}>
+        <>
+          <EditorContent editor={editor}>
             <div
-              aria-autocomplete="list"
-              aria-haspopup="listbox"
-              ref={editor.mount}
-              {...contentEditableProps}
-            />
-            {renderChildren}
-          </div>
-        </EditorContent>
+              className={mergeCSSClasses(
+                "bn-container",
+                editorColorScheme || "",
+                className || ""
+              )}
+              data-color-scheme={editorColorScheme}
+              {...rest}
+              ref={ref}>
+              <div
+                aria-autocomplete="list"
+                aria-haspopup="listbox"
+                ref={editor.mount}
+                {...contentEditableProps}
+              />
+              {renderChildren}
+            </div>
+          </EditorContent>
+          <TooltipPortal />
+        </>
       )}
     </BlockNoteContext.Provider>
   );

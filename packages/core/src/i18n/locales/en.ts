@@ -152,6 +152,7 @@ export const en = {
   drag_handle: {
     delete_menuitem: "Delete",
     colors_menuitem: "Colors",
+    alias_menuitem: "Alias",
   },
   table_handle: {
     delete_column_menuitem: "Delete column",
